@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     rateitRange.addEventListener("mousemove", function (e) {
       const position = e.clientX - this.getBoundingClientRect().left;
       const starValue = getStarValueFromPosition(position);
+      console.log(`Star Value: ${starValue}`); // Debugging line
       updateRatingDisplay(rateitHover, starValue);
     });
 

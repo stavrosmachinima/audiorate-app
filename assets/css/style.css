@@ -120,6 +120,12 @@ footer .footer-nav {
   display: block;
 }
 
+@media (min-width: 1600px) {
+  .rateit-range {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
   .rateit-range {
     font-size: 48px; /* Reduce font size for smaller screens */
