@@ -1,0 +1,128 @@
+/* =============================================================================
+   App specific CSS file.
+   ========================================================================== */
+
+/* universal */
+
+html {
+  overflow-y: scroll;
+}
+
+body {
+  padding-top: 60px;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.container-narrow {
+  margin: 0 auto;
+  max-width: 700px;
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #999999;
+}
+
+footer a {
+  color: #999999;
+}
+
+footer p {
+  float: right;
+  margin-right: 25px;
+}
+
+footer ul {
+  list-style: none;
+}
+
+footer ul li {
+  float: left;
+  margin-left: 10px;
+}
+
+footer .company {
+  float: left;
+  margin-left: 25px;
+}
+
+footer .footer-nav {
+  float: right;
+  margin-right: 25px;
+  list-style: none;
+}
+/* Star Rating System - Letterboxd Style */
+.card-header {
+  text-align: center;
+}
+.rating-container {
+  display: flex; /* Use flexbox for alignment */
+  justify-content: center;
+  align-items: center; /* Align items vertically in the center */
+  width: 100%; /* Ensure the container takes up the full width of its parent */
+  max-width: 500px; /* Optional: Set a maximum width for the container */
+  overflow: hidden; /* Prevent items from overflowing the container */
+  position: relative; /* Position relative for absolute positioning of children */
+}
+
+.rateit-range {
+  max-width: 210px; /* Make the range responsive to the container's width */
+  height: auto; /* Allow height to adjust based on font-size */
+  cursor: pointer;
+  white-space: nowrap; /* Prevent line breaks */
+  font-size: clamp(32px, 2.5vw, 48px); /* Responsive font size */
+}
+
+.rateit-range::before {
+  content: "★★★★★";
+  color: #ddd;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.rateit-selected,
+.rateit-hover {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%; /* Ensure it covers the full width */
+  overflow: hidden; /* Ensure proper clipping */
+  display: none;
+  text-align: center;
+}
+
+.rateit-selected::before {
+  content: "★★★★★";
+  color: #ffca08; /* Gold color */
+  display: none;
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.rateit-hover::before {
+  content: "★★★★★";
+  color: #ffdd66; /* Light gold color */
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .rateit-range {
+    font-size: 48px; /* Reduce font size for smaller screens */
+    max-width: 100%;
+  }
+}

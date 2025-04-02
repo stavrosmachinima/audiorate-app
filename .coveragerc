@@ -1,0 +1,6 @@
+[run]
+source = audiorate
+omit = 
+    tests/*
+    autoapp.py
+

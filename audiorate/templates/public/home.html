@@ -1,0 +1,244 @@
+{% extends "layout.html" %} {% macro star_rating(name_suffix) %}
+<div class="rating-container">
+  <input
+    type="hidden"
+    name="rating_{{ name_suffix }}"
+    id="rating-value-{{ name_suffix }}"
+    value="0"
+  />
+
+  <div
+    id="rateit-{{ name_suffix }}"
+    class="rateit-range"
+    tabindex="0"
+    role="slider"
+    aria-label="rating"
+    aria-valuemin="0"
+    aria-valuemax="10"
+    aria-valuenow="0"
+  >
+    <div class="rateit-selected"></div>
+    <div class="rateit-hover"></div>
+  </div>
+</div>
+{% endmacro %}{% block content %}
+<div class="container">
+  <h1 class="mt-5">Audio Rating Application</h1>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      <h3>Mean Opinion Score (MOS) Evaluation</h3>
+    </div>
+    <div class="card-body">
+      <p>
+        MOS is a subjective quality evaluation metric commonly used in speech
+        synthesis evaluation, where human listeners rate the quality of speech
+        samples on a scale of 1-5:
+      </p>
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          1 - Bad (completely unnatural/unintelligible)
+        </li>
+        <li class="list-group-item">
+          2 - Poor (somewhat unnatural/difficult to understand)
+        </li>
+        <li class="list-group-item">
+          3 - Fair (noticeable issues but comprehensible)
+        </li>
+        <li class="list-group-item">
+          4 - Good (minor issues but generally natural)
+        </li>
+        <li class="list-group-item">
+          5 - Excellent (completely natural/indistinguishable from human speech)
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form
+    id="ratingForm"
+    class="form"
+    method="POST"
+    action="{{ url_for('public.submit_rating') }}"
+    role="form"
+  >
+    {{ form.csrf_token }}
+
+    <!-- First Row of Audio Samples -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Sample Set 1</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <!-- Ground Truth Audio -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Ground Truth Audio</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 1 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 1</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('1') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 2 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 2</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('2') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 3 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 3</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('3') }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Second Row of Audio Samples -->
+    <div class="card mb-4">
+      <div class="card-header">
+        <h3>Sample Set 2</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <!-- Ground Truth Audio -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Ground Truth Audio</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 1 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 1</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('4') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 2 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 2</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('5') }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Model 3 -->
+          <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+              <div class="card-header">
+                <h4>Model 3</h4>
+              </div>
+              <div class="card-body">
+                <audio controls class="w-100 mb-3">
+                  <source
+                    src="{{ url_for('static', filename='audio/22050_lasagna.wav') }}"
+                    type="audio/wav"
+                  />
+                  Your browser does not support the audio element.
+                </audio>
+
+                {{ star_rating('6') }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}
+  </form>
+</div>
