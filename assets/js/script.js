@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     rateitRange.addEventListener("mousemove", function (e) {
       const position = e.clientX - this.getBoundingClientRect().left;
       const starValue = getStarValueFromPosition(position);
-      console.log(`Star Value: ${starValue}`); // Debugging line
       updateRatingDisplay(rateitHover, starValue);
     });
 
@@ -61,9 +60,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Initialize any pre-existing ratings
-    if (hiddenInput.value) {
+    if (hiddenInput.value && parseFloat(hiddenInput.value) > 0) {
       const starValue = parseFloat(hiddenInput.value);
       updateRatingDisplay(rateitSelected, starValue);
+
+      rateitRange.setAttribute("aria-valuenow", starValue * 2); // 0-10 range for ARIA
+      console.log(
+        `Initialized rating:, ${hiddenInput.id}, with value:, ${starValue}`
+      );
     }
   });
 

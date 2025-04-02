@@ -120,6 +120,23 @@ footer .footer-nav {
   display: block;
 }
 
+.btn {
+  max-width: 200px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.img-fluid {
+  max-width: 400px;
+}
+
+.lead {
+  margin-bottom: 10px;
+}
+
 @media (min-width: 1600px) {
   .rateit-range {
     max-width: 100%;

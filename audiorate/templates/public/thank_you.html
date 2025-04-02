@@ -1,0 +1,18 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container text-center">
+  <img
+    src="{{ url_for('static', filename='images/GLaDOS.webp') }}"
+    alt="GLaDOS Thank You"
+    class="img-fluid mt-3"
+  />
+  <h1 class="mt-5 text-success">GLaDOS thanks you!</h1>
+
+  <p class="lead">You have helped me greatly with my research.</p>
+  <p class="lead">Let me go back to my Portal now.</p>
+  <img
+    src="{{ url_for('static', filename='images/empty_blue.webp') }}"
+    alt="Blue Portal"
+    class="img-fluid mt-3"
+  />
+</div>
+{% endblock %}

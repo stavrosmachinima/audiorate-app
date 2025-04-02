@@ -1,28 +1,16 @@
 from flask_wtf import FlaskForm
-from wtforms import HiddenField, RadioField
-from wtforms.validators import DataRequired
+from wtforms import FieldList, FloatField, FormField, HiddenField
+from wtforms.validators import DataRequired, NumberRange
+
+
+class SingleRatingForm(FlaskForm):
+    """Form for a single rating."""
+
+    rating = FloatField(validators=[NumberRange(min=0, max=10)])
 
 
 class RatingForm(FlaskForm):
-    csrf_token = HiddenField()
-    rating = RadioField(
-        "Rating",
-        choices=[
-            (5.0, "5 - Excellent"),
-            (4.5, "4.5"),
-            (4.0, "4 - Good"),
-            (3.5, "3.5"),
-            (3.0, "3 - Fair"),
-            (2.5, "2.5"),
-            (2.0, "2 - Poor"),
-            (1.5, "1.5"),
-            (1.0, "1 - Bad"),
-            (0.5, "0.5"),
-        ],
-        validators=[DataRequired()],
-    )
+    """Form for multiple ratings."""
 
-    def __init__(self, *args, **kwargs):
-        super(RatingForm, self).__init__(*args, **kwargs)
-        self.rating.description = "Rate the audio quality from 0.5 to 5"
-        print("KAPPA")
+    csrf_token = HiddenField()
+    ratings = FieldList(FormField(SingleRatingForm), min_entries=1)

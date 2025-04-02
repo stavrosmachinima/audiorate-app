@@ -1,21 +1,21 @@
-{% extends "layout.html" %} {% macro star_rating(name_suffix) %}
+{% extends "layout.html" %} {% macro star_rating(index) %}
 <div class="rating-container">
   <input
     type="hidden"
-    name="rating_{{ name_suffix }}"
-    id="rating-value-{{ name_suffix }}"
-    value="0"
+    name="ratings-{{ index }}-rating"
+    id="rating-value-{{ index }}"
+    value="{{ form.ratings[index|int-1].rating.data if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}"
   />
 
   <div
-    id="rateit-{{ name_suffix }}"
+    id="rateit-{{ index }}"
     class="rateit-range"
     tabindex="0"
     role="slider"
     aria-label="rating"
     aria-valuemin="0"
     aria-valuemax="10"
-    aria-valuenow="0"
+    aria-valuenow="{{ form.ratings[index|int-1].rating.data*2 if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}"
   >
     <div class="rateit-selected"></div>
     <div class="rateit-hover"></div>
@@ -238,6 +238,10 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="text-center mt-4 mb-4">
+      <button type="submit" class="btn btn-primary">Submit Ratings</button>
     </div>
     {% endblock %}
   </form>
