@@ -5,6 +5,10 @@ from glob import glob
 from subprocess import call
 
 import click
+from flask.cli import with_appcontext
+
+from audiorate.extensions import db
+from audiorate.public.models import Model, Sample
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
@@ -81,3 +85,60 @@ def lint(fix_imports, check):
         execute_tool("Fixing import order", "isort", *isort_args)
     execute_tool("Formatting style", "black", *black_args)
     execute_tool("Checking code style", "flake8")
+
+
+@click.command()
+@with_appcontext
+def seed():
+    """Seed the database with initial data."""
+    print("Seeding database...")
+
+    samples = [
+        Sample(
+            id=1,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+        Sample(
+            id=2,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+        Sample(
+            id=3,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+        Sample(
+            id=4,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+        Sample(
+            id=5,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+        Sample(
+            id=6,
+            audio_file="22050_lasagna.wav",
+            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
+        ),
+    ]
+    for sample in samples:
+        existing = Sample.query.filter_by(id=sample.id).first()
+        if not existing:
+            db.session.merge(sample)
+
+    models = [
+        Model(id=1, name="ForwardTacotron"),
+        Model(id=2, name="FastPitch"),
+        Model(id=3, name="FastSpeech 2"),
+    ]
+    for model in models:
+        existing = Model.query.filter_by(name=model.name).first()
+        if not existing:
+            db.session.merge(model)
+
+    db.session.commit()
+    print("Database seeded.")
