@@ -6,7 +6,7 @@ x-default-volumes: &default_volumes
   volumes:
     - ./:/app
     - node-modules:/app/node_modules
-    - ./dev.db:/tmp/dev.db
+    - ./database/dev.db:/tmp/dev.db
     - ./logs:/app/logs
 
 services:
