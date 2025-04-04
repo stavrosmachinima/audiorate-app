@@ -23,3 +23,4 @@ CACHE_TYPE = (
     "flask_caching.backends.SimpleCache"  # Can be "MemcachedCache", "RedisCache", etc.
 )
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+LOG_LEVEL = env.str("LOG_LEVEL", default="INFO")
