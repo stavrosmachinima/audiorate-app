@@ -29,14 +29,16 @@ FROM python:${INSTALL_PYTHON_VERSION}-slim-bullseye as production
 
 WORKDIR /app
 
-RUN useradd -m sid
+RUN adduser --system --no-create-home --group sid
+
+COPY requirements requirements
+RUN pip install --no-cache -r requirements/prod.txt
+
+COPY --from=builder --chown=sid:sid /app/audiorate/static /app/audiorate/static
+
 RUN chown -R sid:sid /app
 USER sid
 ENV PATH="/home/sid/.local/bin:${PATH}"
-
-COPY --from=builder --chown=sid:sid /app/audiorate/static /app/audiorate/static
-COPY requirements requirements
-RUN pip install --no-cache --user -r requirements/prod.txt
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY supervisord_programs /etc/supervisor/conf.d

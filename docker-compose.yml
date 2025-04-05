@@ -11,6 +11,7 @@ x-default-volumes: &default_volumes
 
 services:
   flask-dev:
+    user: "112:1003"
     build:
       context: .
       target: development
@@ -20,9 +21,14 @@ services:
     ports:
       - "8080:5000"
       - "2992:2992"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     <<: *default_volumes
 
   flask-prod:
+    user: "112:1003"
     build:
       context: .
       target: production
@@ -31,6 +37,10 @@ services:
     image: "audiorate-production"
     ports:
       - "8080:5000"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     environment:
       FLASK_ENV: production
       FLASK_DEBUG: 0
