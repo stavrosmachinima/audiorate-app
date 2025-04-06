@@ -19,7 +19,7 @@ services:
         <<: *build_args
     image: "audiorate-development"
     ports:
-      - "8080:5000"
+      - "8081:5000"
       - "2992:2992"
     security_opt:
       - no-new-privileges:true
@@ -47,6 +47,11 @@ services:
       LOG_LEVEL: info
       GUNICORN_WORKERS: 4
     <<: *default_volumes
+    depends_on:
+      - cloudflared
+    networks:
+      - cloudflare-internal
+      - default # Keep the default network for other potential host access 
 
   manage:
     build:
@@ -62,6 +67,27 @@ services:
     stdin_open: true
     tty: true
     <<: *default_volumes
+  cloudflared:
+    container_name: cloudflared_tunnel
+    restart: unless-stopped
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+    networks:
+      cloudflare-internal:
+        ipv4_address: 172.30.10.2 # Assign a static IP (optional but can be helpful)
+      default:
 
 volumes:
   node-modules:
+
+networks:
+  cloudflare-internal:
+    internal: true
+    ipam:
+      config:
+        - subnet: 172.30.10.0/24 # Choose a different subnet than your other internal network
+  default:    
+    
