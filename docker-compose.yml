@@ -11,7 +11,7 @@ x-default-volumes: &default_volumes
 
 services:
   flask-dev:
-    user: "112:1003"
+    user: "1000:1000"
     build:
       context: .
       target: development

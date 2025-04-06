@@ -134,6 +134,7 @@ def seed():
         Model(id=1, name="ForwardTacotron"),
         Model(id=2, name="FastPitch"),
         Model(id=3, name="FastSpeech 2"),
+        Model(id=4, name="ForwardTacotron-LJSpeech"),
     ]
     for model in models:
         existing = Model.query.filter_by(name=model.name).first()

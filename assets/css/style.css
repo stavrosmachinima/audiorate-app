@@ -81,7 +81,7 @@ footer .footer-nav {
   height: auto; /* Allow height to adjust based on font-size */
   cursor: pointer;
   white-space: nowrap; /* Prevent line breaks */
-  font-size: clamp(32px, 2.5vw, 48px); /* Responsive font size */
+  font-size: 40px;
 }
 
 .rateit-range::before {
@@ -135,6 +135,36 @@ h1 {
 
 .lead {
   margin-bottom: 10px;
+}
+
+.transcript-container {
+  background-color: #f8f9fa;
+  border-left: 3px solid #6c757d;
+}
+
+.transcript-title {
+  font-weight: 600;
+  color: #495057;
+}
+
+.transcript-text {
+  font-style: italic;
+  color: #495057;
+  line-height: 1.6;
+}
+
+/* Force 2-column layout for lg screens until 1200px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .card-body .row > .col-lg {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .row {
+    flex-wrap: nowrap;
+  }
 }
 
 @media (min-width: 1600px) {

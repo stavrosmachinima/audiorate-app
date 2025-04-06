@@ -65,9 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
       updateRatingDisplay(rateitSelected, starValue);
 
       rateitRange.setAttribute("aria-valuenow", starValue * 2); // 0-10 range for ARIA
-      console.log(
-        `Initialized rating:, ${hiddenInput.id}, with value:, ${starValue}`
-      );
     }
   });
 
