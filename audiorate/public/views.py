@@ -1,28 +1,24 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
-from flask import (
-    Blueprint,
-    current_app,
-    flash,
-    redirect,
-    render_template,
-    request,
-    url_for,
-)
+from flask import Blueprint
+from flask import current_app as app
+from flask import flash, redirect, render_template, request, url_for
 
 from audiorate.extensions import db
 from audiorate.public.forms import RatingForm
 from audiorate.public.models import Model, ModelRating, RatingSession, Sample
+from audiorate.utils import load_audio_samples
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
-MODEL_COUNT = 3
+MODEL_COUNT = len(load_audio_samples("models.json", convert_keys_to_int=True))
+AUDIO_SAMPLES = load_audio_samples("samples.json", convert_keys_to_int=True)
 
 
 @blueprint.route("/", methods=["GET"])
 def home():
     """Home page."""
     form = RatingForm()
-    return render_template("public/home.html", form=form)
+    return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)
 
 
 @blueprint.route("/thank_you", methods=["GET"])
@@ -34,16 +30,14 @@ def thank_you():
 @blueprint.route("/submit_rating", methods=["POST"])
 def submit_rating():
     """Submit a rating."""
-    current_app.logger.info("Rating submission started.")
+    app.logger.info("Rating submission started.")
     form = RatingForm(request.form)
     if form.validate_on_submit():
         all_ratings_filled = all(
             float(rating_form.rating.data) >= 0.5 for rating_form in form.ratings
         )
         if not all_ratings_filled:
-            current_app.logger.warning(
-                "Not all ratings were filled. Submission aborted."
-            )
+            app.logger.warning("Not all ratings were filled. Submission aborted.")
             flash("Please complete all ratings before submitting.", "error")
             return render_template("public/home.html", form=form)  # Keep filled values
 
@@ -51,7 +45,7 @@ def submit_rating():
             sample_count = Sample.query.count()
             model_count = Model.query.count()
             if sample_count == 0 or model_count < MODEL_COUNT:
-                current_app.logger.error(
+                app.logger.error(
                     "Database not properly initialized. Sample or model count is insufficient."
                 )
                 flash(
@@ -69,7 +63,7 @@ def submit_rating():
             )
             db.session.add(session)
             db.session.flush()
-            current_app.logger.info(
+            app.logger.info(
                 f"Session created with ID {session.id} and hash {session.session_hash}"
             )
 
@@ -84,7 +78,7 @@ def submit_rating():
                 if sample_index not in samples:
                     sample = Sample.query.filter_by(id=sample_index).first()
                     if not sample:
-                        current_app.logger.error(
+                        app.logger.error(
                             f"Sample {sample_index} not found in database."
                         )
                         flash(
@@ -97,9 +91,7 @@ def submit_rating():
                 if model_index not in models:
                     model = Model.query.filter_by(id=model_index).first()
                     if not model:
-                        current_app.logger.error(
-                            f"Model {model_index} not found in database."
-                        )
+                        app.logger.error(f"Model {model_index} not found in database.")
                         flash(
                             f"Model {model_index} not found. Please contact administrator.",
                             "error",
@@ -123,7 +115,7 @@ def submit_rating():
                     rating_item["model_id"],
                 )
                 if combo_key in added_combinations:
-                    current_app.logger.warning(
+                    app.logger.warning(
                         f"Duplicate rating submission detected for session {session.id}, sample {rating_item['sample_id']}, model {rating_item['model_id']}. Skipping."
                     )
                     continue
@@ -150,13 +142,11 @@ def submit_rating():
                 ],
             }
 
-            current_app.logger.info(
-                f"Rating submission completed. Summary: {rating_summary}"
-            )
+            app.logger.info(f"Rating submission completed. Summary: {rating_summary}")
             return redirect(url_for("public.thank_you"))
         except Exception as e:
             db.session.rollback()
-            current_app.logger.error(
+            app.logger.error(
                 f"Error during rating submission: {str(e)}. Rolling back session.",
                 exc_info=True,
             )
@@ -165,7 +155,7 @@ def submit_rating():
                 "error",
             )
     else:
-        current_app.logger.warning(
+        app.logger.warning(
             f"Rating form validation failed: {form.errors}. Submission aborted."
         )
         flash("Invalid rating, please check your inputs.", "error")

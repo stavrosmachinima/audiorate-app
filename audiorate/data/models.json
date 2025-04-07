@@ -1,0 +1,22 @@
+{
+  "1": {
+    "id": 1,
+    "name": "Forward Tacotron",
+    "description": "Forward Tacotron text-to-speech model"
+  },
+  "2": {
+    "id": 2,
+    "name": "FastSpeech 2",
+    "description": "FastSpeech 2 text-to-speech model"
+  },
+  "3": {
+    "id": 3,
+    "name": "FastPitch",
+    "description": "FastPitch text-to-speech model"
+  },
+  "4": {
+    "id": 4,
+    "name": "Fine-tuned Forward Tacotron",
+    "description": "Forward Tacotron LJSpeech model fine-tuned on GLaDOS data"
+  }
+}

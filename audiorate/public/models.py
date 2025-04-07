@@ -13,11 +13,29 @@ class Sample(PkModel):
     __tablename__ = "samples"
 
     id = Column(db.Integer, nullable=False, primary_key=True)
-    audio_file = Column(db.String(100), nullable=False)
-    transcript = Column(db.Text, nullable=False)
+
+    model_id = Column(db.Integer, db.ForeignKey("models.id"), nullable=True)
+    ground_truth_id = Column(
+        db.Integer, db.ForeignKey("samples.id", ondelete="CASCADE"), nullable=True
+    )
+    is_ground_truth = Column(db.Boolean, nullable=False, default=False)
+    filename = Column(db.String(100), nullable=False)
+    filepath = Column(db.String(255), nullable=False)
+    text = Column(db.Text, nullable=False)
+
+    model = db.relationship(
+        "Model", backref=db.backref("samples", cascade="all, delete")
+    )
+    variants = db.relationship(
+        "Sample",
+        backref=db.backref("ground_truth", remote_side=[id]),
+        cascade="all, delete-orphan",
+    )
 
     def __repr__(self):
-        return f"<Sample {self.audio_file}>"
+        if self.is_ground_truth:
+            return f"<Sample {self.id} (Ground Truth)>"
+        return f"<Sample {self.filename} (Model: {self.model_name if self.model else 'None'})>"
 
 
 class Model(PkModel):
@@ -73,8 +91,6 @@ class ModelRating(PkModel):
         "RatingSession", backref=db.backref("model_ratings", cascade="all, delete")
     )
     sample = db.relationship("Sample", backref="model_ratings")
-    model = db.relationship("Model", backref="model_ratings")
-    db.Index("idx_model_ratings_sample", "sample_id")
 
     __table_args__ = (
         db.UniqueConstraint(

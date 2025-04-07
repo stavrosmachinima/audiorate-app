@@ -6,6 +6,7 @@ x-default-volumes: &default_volumes
   volumes:
     - ./:/app
     - node-modules:/app/node_modules
+    - ./audiorate/data:/app/audiorate/data
     - ./data:/app/data
     - ./logs:/app/logs
 
@@ -51,7 +52,7 @@ services:
       - cloudflared
     networks:
       - cloudflare-internal
-      - default # Keep the default network for other potential host access 
+      - default # Keep the default network for other potential host access
 
   manage:
     build:
@@ -89,5 +90,4 @@ networks:
     ipam:
       config:
         - subnet: 172.30.10.0/24 # Choose a different subnet than your other internal network
-  default:    
-    
+  default:

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Click commands."""
 import os
+import traceback
 from glob import glob
 from subprocess import call
 
@@ -9,6 +10,7 @@ from flask.cli import with_appcontext
 
 from audiorate.extensions import db
 from audiorate.public.models import Model, Sample
+from audiorate.utils import load_audio_samples
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.join(HERE, os.pardir)
@@ -93,53 +95,73 @@ def seed():
     """Seed the database with initial data."""
     print("Seeding database...")
 
-    samples = [
-        Sample(
-            id=1,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-        Sample(
-            id=2,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-        Sample(
-            id=3,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-        Sample(
-            id=4,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-        Sample(
-            id=5,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-        Sample(
-            id=6,
-            audio_file="22050_lasagna.wav",
-            transcript="So... this cat loves lasagna so much that he eats all of the lasagna in his house. Okay, apparently it's not the cat's house or his lasagna. Oh good! The man who owns the lasagna is furious!",
-        ),
-    ]
-    for sample in samples:
-        existing = Sample.query.filter_by(id=sample.id).first()
-        if not existing:
-            db.session.merge(sample)
+    try:
+        samples_data = load_audio_samples("samples.json", convert_keys_to_int=True)
+        models_data = load_audio_samples("models.json", convert_keys_to_int=True)
+        print(
+            f"Found {len(samples_data)} samples and {len(models_data)} models in JSON files"
+        )
 
-    models = [
-        Model(id=1, name="ForwardTacotron"),
-        Model(id=2, name="FastPitch"),
-        Model(id=3, name="FastSpeech 2"),
-        Model(id=4, name="ForwardTacotron-LJSpeech"),
-    ]
-    for model in models:
-        existing = Model.query.filter_by(name=model.name).first()
-        if not existing:
-            db.session.merge(model)
+        if not samples_data or not models_data:
+            print("No data found in JSON files. Using default data.")
+            return
 
-    db.session.commit()
-    print("Database seeded.")
+        for model_id, model_data in models_data.items():
+            model = Model(
+                id=model_id,
+                name=model_data.get("name", f"Model {model_id}"),
+            )
+            existing = Model.query.filter_by(id=model.id).first()
+            if not existing:
+                db.session.merge(model)
+                print(f"Model {model.id} added to the database.")
+            else:
+                print(f"Model {model.id} already exists in the database.")
+
+        db.session.flush()
+
+        for sample_id, sample_data in samples_data.items():
+            ground_truth = Sample(
+                id=sample_id,
+                filename=sample_data.get("ground_truth", "").split("/")[-1],
+                filepath=sample_data.get("ground_truth", ""),
+                text=sample_data.get("text", ""),
+                is_ground_truth=True,
+            )
+            existing = Sample.query.filter_by(id=ground_truth.id).first()
+            if not existing:
+                db.session.merge(ground_truth)
+                print(f"Sample {ground_truth.id} added to the database.")
+            else:
+                print(f"Sample {ground_truth.id} already exists in the database.")
+
+        db.session.flush()
+
+        variant_id = len(samples_data) + 1
+        for sample_id, sample_data in samples_data.items():
+            for model_id_str, filepath in sample_data.get("models", {}).items():
+                model_id = int(model_id_str)
+                variant = Sample(
+                    id=variant_id,
+                    ground_truth_id=sample_id,
+                    filename=filepath.split("/")[-1],
+                    filepath=filepath,
+                    text=sample_data.get("text", ""),
+                    is_ground_truth=False,
+                    model_id=model_id,
+                )
+                existing = Sample.query.filter_by(
+                    ground_truth_id=sample_id, model_id=model_id
+                ).first()
+                if not existing:
+                    db.session.add(variant)
+                    print(f"Variant {variant.filename} added to the database.")
+                    variant_id += 1
+                else:
+                    print(f"Variant {variant.filename} already exists in the database.")
+        db.session.commit()
+        print("Database seeded successfully.")
+    except Exception as e:
+        print(f"Error seeding database: {e}")
+        db.session.rollback()
+        traceback.print_exc()

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 2f16429c8017
+Revision ID: d58490782b6b
 Revises: 
-Create Date: 2025-04-05 14:57:36.951557
+Create Date: 2025-04-07 22:54:06.510298
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2f16429c8017'
+revision = 'd58490782b6b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,8 +36,14 @@ def upgrade():
 
     op.create_table('samples',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('audio_file', sa.String(length=100), nullable=False),
-    sa.Column('transcript', sa.Text(), nullable=False),
+    sa.Column('model_id', sa.Integer(), nullable=True),
+    sa.Column('ground_truth_id', sa.Integer(), nullable=True),
+    sa.Column('is_ground_truth', sa.Boolean(), nullable=False),
+    sa.Column('filename', sa.String(length=100), nullable=False),
+    sa.Column('filepath', sa.String(length=255), nullable=False),
+    sa.Column('text', sa.Text(), nullable=False),
+    sa.ForeignKeyConstraint(['ground_truth_id'], ['samples.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['model_id'], ['models.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('model_ratings',
