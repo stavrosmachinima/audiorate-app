@@ -1,22 +1,11 @@
 {% extends "layout.html" %} {% macro star_rating(index) %}
 <div class="rating-container">
-  <input
-    type="hidden"
-    name="ratings-{{ index }}-rating"
-    id="rating-value-{{ index }}"
-    value="{{ form.ratings[index|int-1].rating.data if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}"
-  />
+  <input type="hidden" name="ratings-{{ index }}-rating" id="rating-value-{{ index }}"
+    value="{{ form.ratings[index|int-1].rating.data if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}" />
 
-  <div
-    id="rateit-{{ index }}"
-    class="rateit-range"
-    tabindex="0"
-    role="slider"
-    aria-label="rating"
-    aria-valuemin="0"
+  <div id="rateit-{{ index }}" class="rateit-range" tabindex="0" role="slider" aria-label="rating" aria-valuemin="0"
     aria-valuemax="10"
-    aria-valuenow="{{ form.ratings[index|int-1].rating.data*2 if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}"
-  >
+    aria-valuenow="{{ form.ratings[index|int-1].rating.data*2 if form.ratings and form.ratings|length > index|int and form.ratings[index|int-1].rating.data != None else 0 }}">
     <div class="rateit-selected"></div>
     <div class="rateit-hover"></div>
   </div>
@@ -36,10 +25,8 @@
           </div>
           <div class="card-body">
             <audio controls class="w-100 mb-3">
-              <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['ground_truth']) }}"
-                type="audio/wav"
-              />
+              <source src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['ground_truth']) }}"
+                type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
             <div class="transcript-container mt-2 p-2 bg-light rounded">
@@ -52,79 +39,27 @@
         </div>
       </div>
 
-      <!-- Model A -->
+      <!-- Shuffled Models -->
+      {% for position in range(1, 5) %}
       <div class="col-lg col-md-6 mb-4">
         <div class="card h-100">
           <div class="card-header">
-            <h4>Model A</h4>
+            <h4>Model {{["A","B","C","D"][position-1]}}</h4>
           </div>
           <div class="card-body">
             <audio controls class="w-100 mb-3">
               <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models']['1']) }}"
-                type="audio/wav"
-              />
+                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models'][position_to_model[position]|string]) }}"
+                type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
-            {{ star_rating((sample_set-1)*4 + 1) }}
+            <input type="hidden" name="model_mapping_{{ (sample_set-1)*4 + position }}"
+              value="{{ position_to_model[position] }}" />
+            {{ star_rating((sample_set-1)*4 + position) }}
           </div>
         </div>
       </div>
-
-      <!-- Models B, C, D similarly -->
-      <div class="col-lg col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-header">
-            <h4>Model B</h4>
-          </div>
-          <div class="card-body">
-            <audio controls class="w-100 mb-3">
-              <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models']['2']) }}"
-                type="audio/wav"
-              />
-              Your browser does not support the audio element.
-            </audio>
-            {{ star_rating((sample_set-1)*4 + 2) }}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-header">
-            <h4>Model C</h4>
-          </div>
-          <div class="card-body">
-            <audio controls class="w-100 mb-3">
-              <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models']['3']) }}"
-                type="audio/wav"
-              />
-              Your browser does not support the audio element.
-            </audio>
-            {{ star_rating((sample_set-1)*4 + 3) }}
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-header">
-            <h4>Model D</h4>
-          </div>
-          <div class="card-body">
-            <audio controls class="w-100 mb-3">
-              <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models']['4']) }}"
-                type="audio/wav"
-              />
-              Your browser does not support the audio element.
-            </audio>
-            {{ star_rating((sample_set-1)*4 + 4) }}
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </div>
@@ -139,9 +74,9 @@
     <div class="card-body">
       <p>
         In this survey, you will hear a short reference audio clip (the ground
-        truth), followed by several cloned speech samples generated by different
-        voice cloning models. Please rate how closely each cloned sample
-        resembles the original voice, based on naturalness and speaker
+        truth), followed by several cloned speech samples generated by
+        different voice cloning models. Please rate how closely each cloned
+        sample resembles the original voice, based on naturalness and speaker
         similarity.
       </p>
       <p>
@@ -172,33 +107,35 @@
 
   <div class="progress-container mb-4">
     <div class="progress">
-      <div
-        class="progress-bar"
-        role="progressbar"
-        style="width: 0%;"
-        aria-valuenow="0"
-        aria-valuemin="0"
-        aria-valuemax="100"
-      >
+      <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+        aria-valuemax="100">
         0%
       </div>
     </div>
   </div>
 
-  <form
-    id="ratingForm"
-    class="form"
-    method="POST"
-    action="{{ url_for('public.submit_rating') }}"
-    role="form"
-  >
-    {{ form.csrf_token }} {{ sample_section(1) }} {{ sample_section(2) }} {{
-    sample_section(3) }} {{ sample_section(4) }} {{ sample_section(5) }} {{
-    sample_section(6) }} {{ sample_section(7) }} {{ sample_section(8) }} {{
-    sample_section(9) }} {{ sample_section(10) }} {{ sample_section(11) }} {{
-    sample_section(12) }} {{ sample_section(13) }} {{ sample_section(14) }} {{
-    sample_section(15) }} {{ sample_section(16) }} {{ sample_section(17) }} {{
-    sample_section(18) }} {{ sample_section(19) }} {{ sample_section(20) }}
+  <form id="ratingForm" class="form" method="POST" action="{{ url_for('public.submit_rating') }}" role="form">
+    {{ form.csrf_token }}
+    {{ sample_section(1) }}
+    {{ sample_section(2) }}
+    {{ sample_section(3) }}
+    {{ sample_section(4) }}
+    {{ sample_section(5) }}
+    {{ sample_section(6) }}
+    {{ sample_section(7) }}
+    {{ sample_section(8) }}
+    {{ sample_section(9) }}
+    {{ sample_section(10) }}
+    {{ sample_section(11) }}
+    {{ sample_section(12) }}
+    {{ sample_section(13) }}
+    {{ sample_section(14) }}
+    {{ sample_section(15) }}
+    {{ sample_section(16) }}
+    {{ sample_section(17) }}
+    {{ sample_section(18) }}
+    {{ sample_section(19) }}
+    {{ sample_section(20) }}
     <div class="text-center mt-4 mb-4">
       <button type="submit" class="btn btn-primary">Submit Ratings</button>
     </div>

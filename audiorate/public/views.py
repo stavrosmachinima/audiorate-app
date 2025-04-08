@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+import random
+
 from flask import Blueprint
 from flask import current_app as app
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, redirect, render_template, request, session, url_for
 
 from audiorate.extensions import db
 from audiorate.public.forms import RatingForm
@@ -18,7 +20,23 @@ AUDIO_SAMPLES = load_audio_samples("samples.json")
 def home():
     """Home page."""
     form = RatingForm()
-    return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)
+    model_order = list(range(1, MODEL_COUNT + 1))
+    random.shuffle(model_order)
+    position_to_model = {
+        position + 1: model_id for position, model_id in enumerate(model_order)
+    }
+
+    session["model_mapping"] = position_to_model
+    model_positions = {
+        model_id: position for position, model_id in position_to_model.items()
+    }
+    return render_template(
+        "public/home.html",
+        form=form,
+        audio_samples=AUDIO_SAMPLES,
+        model_position=model_positions,
+        position_to_model=position_to_model,
+    )
 
 
 @blueprint.route("/thank_you", methods=["GET"])
@@ -33,6 +51,9 @@ def submit_rating():
     app.logger.info("Rating submission started.")
     form = RatingForm(request.form)
     if form.validate_on_submit():
+        model_mapping = session.get("model_mapping", {})
+        if not model_mapping:
+            model_mapping = {i: i for i in range(1, MODEL_COUNT + 1)}
         all_ratings_filled = all(
             float(rating_form.rating.data) >= 0.5 for rating_form in form.ratings
         )
@@ -41,8 +62,7 @@ def submit_rating():
             flash("Please complete all ratings before submitting.", "error")
             return render_template(
                 "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
-            )  # Keep filled values
-
+            )
         try:
             sample_count = Sample.query.count()
             model_count = Model.query.count()
@@ -58,17 +78,17 @@ def submit_rating():
                     "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
                 )
 
-            session = RatingSession(
+            rating_session = RatingSession(
                 session_hash=RatingSession.create_session(
                     request.user_agent.string, ip_address=request.remote_addr
                 ),
                 user_agent=request.user_agent.string,
                 ip_address=request.remote_addr,
             )
-            db.session.add(session)
+            db.session.add(rating_session)
             db.session.flush()
             app.logger.info(
-                f"Session created with ID {session.id} and hash {session.session_hash}"
+                f"Session created with ID {rating_session.id} and hash {rating_session.session_hash}"
             )
 
             samples = {}
@@ -78,6 +98,8 @@ def submit_rating():
             for i, rating_form in enumerate(form.ratings):
                 sample_index = (i // MODEL_COUNT) + 1
                 model_index = (i % MODEL_COUNT) + 1
+
+                model_id = int(request.form.get(f"model_mapping_{i+1}"))
 
                 if sample_index not in samples:
                     sample = Sample.query.filter_by(id=sample_index).first()
@@ -110,7 +132,7 @@ def submit_rating():
                 ratings_data.append(
                     {
                         "sample_id": samples[sample_index].id,
-                        "model_id": models[model_index].id,
+                        "model_id": model_id,
                         "rating": float(rating_form.rating.data),
                     }
                 )
@@ -118,18 +140,18 @@ def submit_rating():
                 added_combinations = set()
             for rating_item in ratings_data:
                 combo_key = (
-                    session.id,
+                    rating_session.id,
                     rating_item["sample_id"],
                     rating_item["model_id"],
                 )
                 if combo_key in added_combinations:
                     app.logger.warning(
-                        f"Duplicate rating submission detected for session {session.id}, sample {rating_item['sample_id']}, model {rating_item['model_id']}. Skipping."
+                        f"Duplicate rating submission detected for session {rating_session.id}, sample {rating_item['sample_id']}, model {rating_item['model_id']}. Skipping."
                     )
                     continue
                 added_combinations.add(combo_key)
                 model_rating = ModelRating(
-                    session_id=session.id,
+                    session_id=rating_session.id,
                     model_id=rating_item["model_id"],
                     sample_id=rating_item["sample_id"],
                     rating=rating_item["rating"],
@@ -137,7 +159,7 @@ def submit_rating():
                 db.session.add(model_rating)
             db.session.commit()
             rating_summary = {
-                "session_id": session.id,
+                "session_id": rating_session.id,
                 "ratings": [
                     {
                         "sample_id": samples[(i // MODEL_COUNT) + 1].id,
