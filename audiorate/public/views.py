@@ -20,22 +20,22 @@ AUDIO_SAMPLES = load_audio_samples("samples.json")
 def home():
     """Home page."""
     form = RatingForm()
-    model_order = list(range(1, MODEL_COUNT + 1))
-    random.shuffle(model_order)
-    position_to_model = {
-        position + 1: model_id for position, model_id in enumerate(model_order)
-    }
 
-    session["model_mapping"] = position_to_model
-    model_positions = {
-        model_id: position for position, model_id in position_to_model.items()
-    }
+    position_to_model_by_sample = {}
+    for sample_id in AUDIO_SAMPLES:
+        model_order = list(range(1, MODEL_COUNT + 1))
+        random.shuffle(model_order)
+        position_to_model_by_sample[sample_id] = {
+            position + 1: model_id for position, model_id in enumerate(model_order)
+        }
+
+    session["model_mapping_by_sample"] = position_to_model_by_sample
+
     return render_template(
         "public/home.html",
         form=form,
         audio_samples=AUDIO_SAMPLES,
-        model_position=model_positions,
-        position_to_model=position_to_model,
+        position_to_model_by_sample=position_to_model_by_sample,
     )
 
 
@@ -51,9 +51,13 @@ def submit_rating():
     app.logger.info("Rating submission started.")
     form = RatingForm(request.form)
     if form.validate_on_submit():
-        model_mapping = session.get("model_mapping", {})
-        if not model_mapping:
-            model_mapping = {i: i for i in range(1, MODEL_COUNT + 1)}
+        model_mapping_by_sample = session.get("model_mapping_by_sample", {})
+        if not model_mapping_by_sample:
+            model_mapping_by_sample = {
+                sample_id: {i: i for i in range(1, MODEL_COUNT + 1)}
+                for sample_id in AUDIO_SAMPLES
+            }
+
         all_ratings_filled = all(
             float(rating_form.rating.data) >= 0.5 for rating_form in form.ratings
         )
@@ -191,4 +195,4 @@ def submit_rating():
         flash("Invalid rating, please check your inputs.", "error")
         return render_template(
             "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
-        )  # Keep existing values
+        )

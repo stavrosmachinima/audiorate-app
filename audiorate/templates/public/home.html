@@ -49,12 +49,12 @@
           <div class="card-body">
             <audio controls class="w-100 mb-3">
               <source
-                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models'][position_to_model[position]|string]) }}"
+                src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['models'][position_to_model_by_sample[sample_set][position]|string]) }}"
                 type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
             <input type="hidden" name="model_mapping_{{ (sample_set-1)*4 + position }}"
-              value="{{ position_to_model[position] }}" />
+              value="{{ position_to_model_by_sample[sample_set][position] }}" />
             {{ star_rating((sample_set-1)*4 + position) }}
           </div>
         </div>
