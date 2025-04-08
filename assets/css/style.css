@@ -153,6 +153,37 @@ h1 {
   line-height: 1.6;
 }
 
+/* Progress Bar */
+.progress-container {
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
+  bottom: 0;
+  left: 0;
+  background-color: #f8f9fa;
+  padding: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.progress {
+  background-color: #e9ecef;
+  border-radius: 5px;
+  height: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: #0779eb;
+  height: 100%;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  font-size: 14px;
+  transition: width 0.4s ease;
+}
+
 /* Force 2-column layout for lg screens until 1200px */
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .card-body .row > .col-lg {
@@ -173,9 +204,33 @@ h1 {
   }
 }
 
+@media (max-width: 768px) {
+  .progress-container {
+    margin:0 10px;
+    border-radius:5px;
+  }
+  .progress {
+    height: 18px;
+    padding: 3px 10;
+  }
+  .progress-bar {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
 @media (max-width: 480px) {
+  .progress-container {
+   padding:2px 8px;
+    margin:0 8px;
+    border-radius:4px;
+  }
+
+  .progress-bar {
+    line-height: 15px;
+  }
   .rateit-range {
-    font-size: 48px; /* Reduce font size for smaller screens */
+    font-size: 48px;
     max-width: 100%;
   }
 }
