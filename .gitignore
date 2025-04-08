@@ -58,3 +58,5 @@ env/
 *.db
 
 *.log
+
+migrations/*
