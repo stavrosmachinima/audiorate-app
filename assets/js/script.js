@@ -16,9 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
       completedRatings >= totalRatings
         ? 100
         : Math.round((completedRatings / totalRatings) * 100);
-    console.log(
-      `Completed Ratings: ${completedRatings}, Total Ratings: ${totalRatings}, Progress: ${progressPercentage}%`
-    );
     progressBar.style.width = `${progressPercentage}%`;
     progressBar.setAttribute("aria-valuenow", progressPercentage);
     progressBar.textContent = `${progressPercentage}% completed`;
