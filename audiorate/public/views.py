@@ -10,8 +10,8 @@ from audiorate.public.models import Model, ModelRating, RatingSession, Sample
 from audiorate.utils import load_audio_samples
 
 blueprint = Blueprint("public", __name__, static_folder="../static")
-MODEL_COUNT = len(load_audio_samples("models.json", convert_keys_to_int=True))
-AUDIO_SAMPLES = load_audio_samples("samples.json", convert_keys_to_int=True)
+MODEL_COUNT = len(load_audio_samples("models.json"))
+AUDIO_SAMPLES = load_audio_samples("samples.json")
 
 
 @blueprint.route("/", methods=["GET"])
@@ -39,7 +39,9 @@ def submit_rating():
         if not all_ratings_filled:
             app.logger.warning("Not all ratings were filled. Submission aborted.")
             flash("Please complete all ratings before submitting.", "error")
-            return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)  # Keep filled values
+            return render_template(
+                "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+            )  # Keep filled values
 
         try:
             sample_count = Sample.query.count()
@@ -52,7 +54,9 @@ def submit_rating():
                     "Database not properly initialized. Please contact administrator.",
                     "error",
                 )
-                return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)
+                return render_template(
+                    "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                )
 
             session = RatingSession(
                 session_hash=RatingSession.create_session(
@@ -85,7 +89,9 @@ def submit_rating():
                             f"Sample {sample_index} not found. Please contact administrator.",
                             "error",
                         )
-                        return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)
+                        return render_template(
+                            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                        )
                     samples[sample_index] = sample
 
                 if model_index not in models:
@@ -96,7 +102,9 @@ def submit_rating():
                             f"Model {model_index} not found. Please contact administrator.",
                             "error",
                         )
-                        return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)
+                        return render_template(
+                            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                        )
                     models[model_index] = model
 
                 ratings_data.append(
@@ -159,4 +167,6 @@ def submit_rating():
             f"Rating form validation failed: {form.errors}. Submission aborted."
         )
         flash("Invalid rating, please check your inputs.", "error")
-        return render_template("public/home.html", form=form, audio_samples=AUDIO_SAMPLES)  # Keep existing values
+        return render_template(
+            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+        )  # Keep existing values

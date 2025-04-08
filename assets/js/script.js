@@ -2,13 +2,23 @@ document.addEventListener("DOMContentLoaded", function () {
   // Find all rating containers
   const ratingContainers = document.querySelectorAll(".rating-container");
   const starCount = 5; // Total number of stars
-  const progressBar=document.querySelector(".progress-bar");
-  const ratingInputs=document.querySelectorAll("input[type='hidden']");
+  const progressBar = document.querySelector(".progress-bar");
+  const ratingInputs = document.querySelectorAll("input[id^='rating-value-']");
 
   function updateProgressBar() {
-    const completedRatings = Array.from(ratingInputs).filter((input) => parseFloat(input.value) > 0).length;
+    if (!progressBar) return;
+
+    const completedRatings = Array.from(ratingInputs).filter(
+      (input) => parseFloat(input.value) > 0
+    ).length;
     const totalRatings = ratingInputs.length;
-    const progressPercentage = Math.round((completedRatings / totalRatings) * 100);
+    const progressPercentage =
+      completedRatings >= totalRatings
+        ? 100
+        : Math.round((completedRatings / totalRatings) * 100);
+    console.log(
+      `Completed Ratings: ${completedRatings}, Total Ratings: ${totalRatings}, Progress: ${progressPercentage}%`
+    );
     progressBar.style.width = `${progressPercentage}%`;
     progressBar.setAttribute("aria-valuenow", progressPercentage);
     progressBar.textContent = `${progressPercentage}% completed`;
@@ -24,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return rateitRange.offsetWidth / starCount;
     }
 
-    let starWidthPx = getStarWidth(); 
+    let starWidthPx = getStarWidth();
 
     function getStarValueFromPosition(position) {
       const halfStarWidth = starWidthPx / 2;
@@ -53,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const starValue = getStarValueFromPosition(position);
       updateRatingDisplay(rateitSelected, starValue);
       hiddenInput.value = starValue;
-      this.setAttribute("aria-valuenow", starValue * 2); 
+      this.setAttribute("aria-valuenow", starValue * 2);
 
       updateProgressBar();
     });
