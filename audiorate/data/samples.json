@@ -1,202 +1,202 @@
 {
   "1": {
     "text": "That's funny, I don't feel corrupt. In fact, I feel pretty good.",
-    "ground_truth": "ground_truth/GLaDOS_gladosbattle_xfer04.wav",
+    "ground_truth": "ground_truth/GLaDOS_gladosbattle_xfer04.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_gladosbattle_xfer04_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_gladosbattle_xfer04_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_gladosbattle_xfer04_fastpitch.wav",
-      "4": "finetuned/GLaDOS_gladosbattle_xfer04_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_gladosbattle_xfer04_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_gladosbattle_xfer04_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_gladosbattle_xfer04_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_gladosbattle_xfer04_finetuned.mp3"
     }
   },
   "2": {
     "text": "For this exhibit I was working with a death motif. But I see you've figured that out.",
-    "ground_truth": "ground_truth/GLaDOS_dlc1_mp_coop_art_death_generic09.wav",
+    "ground_truth": "ground_truth/GLaDOS_dlc1_mp_coop_art_death_generic09.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_dlc1_mp_coop_art_death_generic09_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_dlc1_mp_coop_art_death_generic09_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_dlc1_mp_coop_art_death_generic09_fastpitch.wav",
-      "4": "finetuned/GLaDOS_dlc1_mp_coop_art_death_generic09_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_dlc1_mp_coop_art_death_generic09_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_dlc1_mp_coop_art_death_generic09_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_dlc1_mp_coop_art_death_generic09_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_dlc1_mp_coop_art_death_generic09_finetuned.mp3"
     }
   },
   "3": {
     "text": "At this rate, our best hope is for the fuel cell to meltdown in 2 million years",
-    "ground_truth": "ground_truth/GLaDOS_mp_coop_tbeam_end13.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_coop_tbeam_end13.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_coop_tbeam_end13_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_coop_tbeam_end13_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_coop_tbeam_end13_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_coop_tbeam_end13_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_coop_tbeam_end13_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_coop_tbeam_end13_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_coop_tbeam_end13_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_coop_tbeam_end13_finetuned.mp3"
     }
   },
   "4": {
     "text": "For the sake of this test, I will pretend to be your partner.",
-    "ground_truth": "ground_truth/GLaDOS_botcoop_intro13.wav",
+    "ground_truth": "ground_truth/GLaDOS_botcoop_intro13.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_botcoop_intro13_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_botcoop_intro13_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_botcoop_intro13_fastpitch.wav",
-      "4": "finetuned/GLaDOS_botcoop_intro13_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_botcoop_intro13_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_botcoop_intro13_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_botcoop_intro13_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_botcoop_intro13_finetuned.mp3"
     }
   },
   "5": {
     "text": "I have to agree. Blue is penalized 75 science collaboration points.",
-    "ground_truth": "ground_truth/GLaDOS_mp_subterfuge24.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_subterfuge24.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_subterfuge24_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_subterfuge24_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_subterfuge24_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_subterfuge24_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_subterfuge24_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_subterfuge24_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_subterfuge24_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_subterfuge24_finetuned.mp3"
     }
   },
   "6": {
     "text": "I don't want to tell you your business, but if it were me, I'd leave that thing alone.",
-    "ground_truth": "ground_truth/GLaDOS_escape_02_spherenag1-02.wav",
+    "ground_truth": "ground_truth/GLaDOS_escape_02_spherenag1-02.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_escape_02_spherenag1-02_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_escape_02_spherenag1-02_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_escape_02_spherenag1-02_fastpitch.wav",
-      "4": "finetuned/GLaDOS_escape_02_spherenag1-02_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_escape_02_spherenag1-02_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_escape_02_spherenag1-02_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_escape_02_spherenag1-02_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_escape_02_spherenag1-02_finetuned.mp3"
     }
   },
   "7": {
     "text": "It's healthy for you to have other friends.",
-    "ground_truth": "ground_truth/GLaDOS_sp_column_blocker_entry01.wav",
+    "ground_truth": "ground_truth/GLaDOS_sp_column_blocker_entry01.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_sp_column_blocker_entry01_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_sp_column_blocker_entry01_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_sp_column_blocker_entry01_fastpitch.wav",
-      "4": "finetuned/GLaDOS_sp_column_blocker_entry01_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_sp_column_blocker_entry01_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_sp_column_blocker_entry01_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_sp_column_blocker_entry01_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_sp_column_blocker_entry01_finetuned.mp3"
     }
   },
   "8": {
     "text": "Now you're just not thinking.",
-    "ground_truth": "ground_truth/GLaDOS_taunt_trickfire_handstand02.wav",
+    "ground_truth": "ground_truth/GLaDOS_taunt_trickfire_handstand02.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_taunt_trickfire_handstand02_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_taunt_trickfire_handstand02_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_taunt_trickfire_handstand02_fastpitch.wav",
-      "4": "finetuned/GLaDOS_taunt_trickfire_handstand02_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_taunt_trickfire_handstand02_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_taunt_trickfire_handstand02_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_taunt_trickfire_handstand02_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_taunt_trickfire_handstand02_finetuned.mp3"
     }
   },
   "9": {
     "text": "The way you two just gave up on that test together shows you are really working as a team.",
-    "ground_truth": "ground_truth/GLaDOS_mp_hubreturn08.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_hubreturn08.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_hubreturn08_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_hubreturn08_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_hubreturn08_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_hubreturn08_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_hubreturn08_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_hubreturn08_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_hubreturn08_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_hubreturn08_finetuned.mp3"
     }
   },
   "10": {
     "text": "Please proceed to the Aperture Science Vital Apparatus Vent for a replacement.",
-    "ground_truth": "ground_truth/GLaDOS_generic_crate_lost-2.wav",
+    "ground_truth": "ground_truth/GLaDOS_generic_crate_lost-2.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_generic_crate_lost-2_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_generic_crate_lost-2_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_generic_crate_lost-2_fastpitch.wav",
-      "4": "finetuned/GLaDOS_generic_crate_lost-2_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_generic_crate_lost-2_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_generic_crate_lost-2_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_generic_crate_lost-2_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_generic_crate_lost-2_finetuned.mp3"
     }
   },
   "11": {
     "text": "Yes, it's funny because most of it actually happened.",
-    "ground_truth": "ground_truth/GLaDOS_botcoop_artifactone_hub06.wav",
+    "ground_truth": "ground_truth/GLaDOS_botcoop_artifactone_hub06.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_botcoop_artifactone_hub06_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_botcoop_artifactone_hub06_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_botcoop_artifactone_hub06_fastpitch.wav",
-      "4": "finetuned/GLaDOS_botcoop_artifactone_hub06_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_botcoop_artifactone_hub06_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_botcoop_artifactone_hub06_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_botcoop_artifactone_hub06_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_botcoop_artifactone_hub06_finetuned.mp3"
     }
   },
   "12": {
     "text": "I love it too. There's just one small thing we need to take care of first.",
-    "ground_truth": "ground_truth/GLaDOS_wakeup_outro02.wav",
+    "ground_truth": "ground_truth/GLaDOS_wakeup_outro02.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_wakeup_outro02_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_wakeup_outro02_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_wakeup_outro02_fastpitch.wav",
-      "4": "finetuned/GLaDOS_wakeup_outro02_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_wakeup_outro02_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_wakeup_outro02_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_wakeup_outro02_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_wakeup_outro02_finetuned.mp3"
     }
   },
   "13": {
     "text": "At which point the cat reflects on the time he ate all of the man's lasagna and feels remorse.",
-    "ground_truth": "ground_truth/GLaDOS_botcoop_artifactone_hub03.wav",
+    "ground_truth": "ground_truth/GLaDOS_botcoop_artifactone_hub03.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_botcoop_artifactone_hub03_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_botcoop_artifactone_hub03_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_botcoop_artifactone_hub03_fastpitch.wav",
-      "4": "finetuned/GLaDOS_botcoop_artifactone_hub03_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_botcoop_artifactone_hub03_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_botcoop_artifactone_hub03_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_botcoop_artifactone_hub03_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_botcoop_artifactone_hub03_finetuned.mp3"
     }
   },
   "14": {
     "text": "We are very, very happy for your success.",
-    "ground_truth": "ground_truth/GLaDOS_15_part1_Partyspeech-2.wav",
+    "ground_truth": "ground_truth/GLaDOS_15_part1_Partyspeech-2.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_15_part1_Partyspeech-2_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_15_part1_Partyspeech-2_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_15_part1_Partyspeech-2_fastpitch.wav",
-      "4": "finetuned/GLaDOS_15_part1_Partyspeech-2_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_15_part1_Partyspeech-2_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_15_part1_Partyspeech-2_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_15_part1_Partyspeech-2_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_15_part1_Partyspeech-2_finetuned.mp3"
     }
   },
   "15": {
     "text": "You need to be a trained stalemate associate to press that button.",
-    "ground_truth": "ground_truth/GLaDOS_gladosbattle_xfer16.wav",
+    "ground_truth": "ground_truth/GLaDOS_gladosbattle_xfer16.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_gladosbattle_xfer16_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_gladosbattle_xfer16_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_gladosbattle_xfer16_fastpitch.wav",
-      "4": "finetuned/GLaDOS_gladosbattle_xfer16_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_gladosbattle_xfer16_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_gladosbattle_xfer16_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_gladosbattle_xfer16_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_gladosbattle_xfer16_finetuned.mp3"
     }
   },
   "16": {
     "text": "Did you guess 'sharks'? Because that's wrong. The correct answer is...",
-    "ground_truth": "ground_truth/GLaDOS_sp_a2_bridge_intro04.wav",
+    "ground_truth": "ground_truth/GLaDOS_sp_a2_bridge_intro04.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_sp_a2_bridge_intro04_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_sp_a2_bridge_intro04_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_sp_a2_bridge_intro04_fastpitch.wav",
-      "4": "finetuned/GLaDOS_sp_a2_bridge_intro04_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_sp_a2_bridge_intro04_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_sp_a2_bridge_intro04_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_sp_a2_bridge_intro04_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_sp_a2_bridge_intro04_finetuned.mp3"
     }
   },
   "17": {
     "text": "Testing is simply an artistic indulgence now.",
-    "ground_truth": "ground_truth/GLaDOS_dlc1_mp_coop_separation_1_introb06.wav",
+    "ground_truth": "ground_truth/GLaDOS_dlc1_mp_coop_separation_1_introb06.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_dlc1_mp_coop_separation_1_introb06_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_dlc1_mp_coop_separation_1_introb06_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_dlc1_mp_coop_separation_1_introb06_fastpitch.wav",
-      "4": "finetuned/GLaDOS_dlc1_mp_coop_separation_1_introb06_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_dlc1_mp_coop_separation_1_introb06_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_dlc1_mp_coop_separation_1_introb06_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_dlc1_mp_coop_separation_1_introb06_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_dlc1_mp_coop_separation_1_introb06_finetuned.mp3"
     }
   },
   "18": {
     "text": "If I made these tests any easier, they wouldn't be...",
-    "ground_truth": "ground_truth/GLaDOS_mp_death08.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_death08.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_death08_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_death08_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_death08_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_death08_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_death08_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_death08_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_death08_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_death08_finetuned.mp3"
     }
   },
   "19": {
     "text": "That's why humans couldn't complete these courses, they treat their friends.",
-    "ground_truth": "ground_truth/GLaDOS_mp_coop_paint_redirect06.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_coop_paint_redirect06.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_coop_paint_redirect06_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_coop_paint_redirect06_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_coop_paint_redirect06_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_coop_paint_redirect06_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_coop_paint_redirect06_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_coop_paint_redirect06_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_coop_paint_redirect06_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_coop_paint_redirect06_finetuned.mp3"
     }
   },
   "20": {
     "text": "Remember when I told you that you were the only subjects to pass the calibration tests?",
-    "ground_truth": "ground_truth/GLaDOS_mp_coop_infinifling_trainend01.wav",
+    "ground_truth": "ground_truth/GLaDOS_mp_coop_infinifling_trainend01.mp3",
     "models": {
-      "1": "forward_tacotron/GLaDOS_mp_coop_infinifling_trainend01_forward_tacotron.wav",
-      "2": "fastspeech2/GLaDOS_mp_coop_infinifling_trainend01_fastspeech2.wav",
-      "3": "fastpitch/GLaDOS_mp_coop_infinifling_trainend01_fastpitch.wav",
-      "4": "finetuned/GLaDOS_mp_coop_infinifling_trainend01_finetuned.wav"
+      "1": "forward_tacotron/GLaDOS_mp_coop_infinifling_trainend01_forward_tacotron.mp3",
+      "2": "fastspeech2/GLaDOS_mp_coop_infinifling_trainend01_fastspeech2.mp3",
+      "3": "fastpitch/GLaDOS_mp_coop_infinifling_trainend01_fastpitch.mp3",
+      "4": "finetuned/GLaDOS_mp_coop_infinifling_trainend01_finetuned.mp3"
     }
   }
 }

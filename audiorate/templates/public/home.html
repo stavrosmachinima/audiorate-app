@@ -24,7 +24,13 @@
             <h4>Ground Truth</h4>
           </div>
           <div class="card-body">
-            <audio controls class="w-100 mb-3">
+            <div class="sample-loading-container" id="loading-sample-{{ sample_set }}">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading audio...</span>
+              </div>
+            </div>
+            <audio onloadeddata="document.getElementById('loading-sample-{{ sample_set }}').style.display='none';"
+              controls class="w-100 mb-3">
               <source src="{{ url_for('static', filename='audio/' + audio_samples[sample_set]['ground_truth']) }}"
                 type="audio/wav" />
               Your browser does not support the audio element.
