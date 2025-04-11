@@ -50,6 +50,13 @@ def submit_rating():
     """Submit a rating."""
     app.logger.info("Rating submission started.")
     form = RatingForm(request.form)
+    position_to_model_by_sample = session.get("model_mapping_by_sample", {})
+    if not position_to_model_by_sample:
+        position_to_model_by_sample = {
+            sample_id: {i: i for i in range(1, MODEL_COUNT + 1)}
+            for sample_id in AUDIO_SAMPLES
+        }
+        session["model_mapping_by_sample"] = position_to_model_by_sample
     if form.validate_on_submit():
         model_mapping_by_sample = session.get("model_mapping_by_sample", {})
         if not model_mapping_by_sample:
@@ -65,7 +72,10 @@ def submit_rating():
             app.logger.warning("Not all ratings were filled. Submission aborted.")
             flash("Please complete all ratings before submitting.", "error")
             return render_template(
-                "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                "public/home.html",
+                form=form,
+                audio_samples=AUDIO_SAMPLES,
+                position_to_model_by_sample=position_to_model_by_sample,
             )
         try:
             sample_count = Sample.query.count()
@@ -79,7 +89,10 @@ def submit_rating():
                     "error",
                 )
                 return render_template(
-                    "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                    "public/home.html",
+                    form=form,
+                    audio_samples=AUDIO_SAMPLES,
+                    position_to_model_by_sample=position_to_model_by_sample,
                 )
 
             rating_session = RatingSession(
@@ -116,7 +129,10 @@ def submit_rating():
                             "error",
                         )
                         return render_template(
-                            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                            "public/home.html",
+                            form=form,
+                            audio_samples=AUDIO_SAMPLES,
+                            position_to_model_by_sample=position_to_model_by_sample,
                         )
                     samples[sample_index] = sample
 
@@ -129,7 +145,10 @@ def submit_rating():
                             "error",
                         )
                         return render_template(
-                            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+                            "public/home.html",
+                            form=form,
+                            audio_samples=AUDIO_SAMPLES,
+                            position_to_model_by_sample=position_to_model_by_sample,
                         )
                     models[model_index] = model
 
@@ -194,5 +213,8 @@ def submit_rating():
         )
         flash("Invalid rating, please check your inputs.", "error")
         return render_template(
-            "public/home.html", form=form, audio_samples=AUDIO_SAMPLES
+            "public/home.html",
+            form=form,
+            audio_samples=AUDIO_SAMPLES,
+            position_to_model_by_sample=position_to_model_by_sample,
         )
