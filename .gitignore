@@ -55,7 +55,7 @@ env/
 .env
 
 # Development database
-*.db
+data/*
 
 *.log
 

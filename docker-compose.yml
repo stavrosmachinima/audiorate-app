@@ -9,6 +9,7 @@ x-default-volumes: &default_volumes
     - ./audiorate/data:/app/audiorate/data
     - ./data:/app/data
     - ./logs:/app/logs
+    - ./data/sessions:/app/data/sessions
 
 services:
   flask-dev:

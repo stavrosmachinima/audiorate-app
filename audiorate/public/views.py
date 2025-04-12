@@ -30,6 +30,7 @@ def home():
         }
 
     session["model_mapping_by_sample"] = position_to_model_by_sample
+    session.modified = True
 
     return render_template(
         "public/home.html",
@@ -51,20 +52,25 @@ def submit_rating():
     app.logger.info("Rating submission started.")
     form = RatingForm(request.form)
     position_to_model_by_sample = session.get("model_mapping_by_sample", {})
-    if not position_to_model_by_sample:
+    app.logger.info(
+        f"Session ID: {session.sid if hasattr(session, 'sid') else 'No session ID'}"
+    )
+    app.logger.info(f"Model mapping exists: {bool(position_to_model_by_sample)}")
+    if position_to_model_by_sample:
+        app.logger.info(
+            f"First sample models: {position_to_model_by_sample.get(1,'Not found')}"
+        )
+    if not position_to_model_by_sample or not all(
+        sample_id in position_to_model_by_sample for sample_id in AUDIO_SAMPLES
+    ):
+        app.logger.warning("Regenrerating model mapping due to missing keys")
         position_to_model_by_sample = {
             sample_id: {i: i for i in range(1, MODEL_COUNT + 1)}
             for sample_id in AUDIO_SAMPLES
         }
         session["model_mapping_by_sample"] = position_to_model_by_sample
+        session.modified = True
     if form.validate_on_submit():
-        model_mapping_by_sample = session.get("model_mapping_by_sample", {})
-        if not model_mapping_by_sample:
-            model_mapping_by_sample = {
-                sample_id: {i: i for i in range(1, MODEL_COUNT + 1)}
-                for sample_id in AUDIO_SAMPLES
-            }
-
         all_ratings_filled = all(
             float(rating_form.rating.data) >= 0.5 for rating_form in form.ratings
         )
@@ -114,7 +120,6 @@ def submit_rating():
 
             for i, rating_form in enumerate(form.ratings):
                 sample_index = (i // MODEL_COUNT) + 1
-                model_index = (i % MODEL_COUNT) + 1
 
                 model_id = int(request.form.get(f"model_mapping_{i+1}"))
 
@@ -136,12 +141,12 @@ def submit_rating():
                         )
                     samples[sample_index] = sample
 
-                if model_index not in models:
-                    model = Model.query.filter_by(id=model_index).first()
+                if model_id not in models:
+                    model = Model.query.filter_by(id=model_id).first()
                     if not model:
-                        app.logger.error(f"Model {model_index} not found in database.")
+                        app.logger.error(f"Model {model_id} not found in database.")
                         flash(
-                            f"Model {model_index} not found. Please contact administrator.",
+                            f"Model {model_id} not found. Please contact administrator.",
                             "error",
                         )
                         return render_template(
@@ -150,7 +155,7 @@ def submit_rating():
                             audio_samples=AUDIO_SAMPLES,
                             position_to_model_by_sample=position_to_model_by_sample,
                         )
-                    models[model_index] = model
+                    models[model_id] = model
 
                 ratings_data.append(
                     {
@@ -185,13 +190,11 @@ def submit_rating():
                 "session_id": rating_session.id,
                 "ratings": [
                     {
-                        "sample_id": samples[(i // MODEL_COUNT) + 1].id,
-                        "model_id": models[(i % MODEL_COUNT) + 1].id,
-                        "rating": float(rating_form.rating.data),
+                        "sample_id": rating_item["sample_id"],
+                        "model_id": rating_item["model_id"],
+                        "rating": rating_item["rating"],
                     }
-                    for i, rating_form in enumerate(form.ratings)
-                    if (i // MODEL_COUNT) + 1 in samples
-                    and (i % MODEL_COUNT) + 1 in models
+                    for rating_item in ratings_data
                 ],
             }
 
