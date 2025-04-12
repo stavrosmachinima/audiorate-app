@@ -3,10 +3,12 @@
 import logging
 import os
 import sys
+import time
 from datetime import timedelta
 from logging.handlers import RotatingFileHandler
 
 from flask import Flask, render_template
+from flask_session import Session
 
 from audiorate import commands, public
 from audiorate.extensions import (
@@ -17,7 +19,6 @@ from audiorate.extensions import (
     flask_static_digest,
     migrate,
 )
-from flask_session import Session
 
 
 def create_app(config_object="audiorate.settings"):
@@ -32,6 +33,7 @@ def create_app(config_object="audiorate.settings"):
     app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=5)
     app.config["SESSION_FILE_DIR"] = "/app/data/sessions"
     app.config["SQLALCHEMY_RECORD_QUERIES"] = True
+    app.config["VERSION"] = str(int(time.time()))
     os.makedirs(app.config["SESSION_FILE_DIR"], exist_ok=True)
     Session(app)
     register_extensions(app)
@@ -40,6 +42,12 @@ def create_app(config_object="audiorate.settings"):
     register_shellcontext(app)
     register_commands(app)
     configure_logger(app)
+
+    # Pass config to templates
+    @app.context_processor
+    def inject_config():
+        return dict(config=app.config)
+
     return app
 
 
