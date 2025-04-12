@@ -25,7 +25,7 @@
   <link rel="stylesheet" type="text/css"
     href="{{ static_url_for('static', filename='build/main_css.bundle.css', v=config.VERSION) }}" />
   <link rel="preload" href="{{ url_for('static', filename='audio/ground_truth/GLaDOS_gladosbattle_xfer04.mp3') }}"
-    as="audio" type="audio/mpeg">
+    as="fetch" type="audio/mpeg" crossorigin>
   {% block css %}{% endblock %}
 </head>
 
