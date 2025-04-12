@@ -181,6 +181,7 @@ h1 {
   line-height: 20px;
   font-size: 14px;
   transition: width 0.4s ease;
+  padding-left: 2px;
 }
 
 /* Force 2-column layout for lg screens until 1200px */
@@ -219,17 +220,14 @@ h1 {
   .progress {
     height: 18px;
     padding: 3px 10;
-    margin-bottom: 20px;
   }
   .progress-bar {
-    font-size: 12px;
     line-height: 18px;
   }
 }
 
 @media (max-width: 480px) {
   .progress-container {
-    padding: 2px 8px;
     margin: 0 8px;
     border-radius: 4px;
   }
