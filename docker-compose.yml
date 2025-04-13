@@ -11,6 +11,13 @@ x-default-volumes: &default_volumes
     - ./logs:/app/logs
     - ./data/sessions:/app/data/sessions
 
+x-prod-volumes: &prod_volumes
+  volumes:
+    - ./audiorate/data:/app/audiorate/data
+    - ./data:/app/data
+    - ./logs:/app/logs
+    - ./data/sessions:/app/data/sessions
+
 services:
   flask-dev:
     user: "1000:1000"
@@ -48,7 +55,7 @@ services:
       FLASK_DEBUG: 0
       LOG_LEVEL: info
       GUNICORN_WORKERS: 4
-    <<: *default_volumes
+    <<: *prod_volumes
     depends_on:
       - cloudflared
     networks:
@@ -69,6 +76,7 @@ services:
     stdin_open: true
     tty: true
     <<: *default_volumes
+
   cloudflared:
     container_name: cloudflared_tunnel
     restart: unless-stopped
