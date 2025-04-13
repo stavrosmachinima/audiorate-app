@@ -48,6 +48,17 @@ def create_app(config_object="audiorate.settings"):
     def inject_config():
         return dict(config=app.config)
 
+    @app.after_request
+    def add_cache_control(response):
+        if (
+            "text/css" in response.content_type
+            or "application/javascript" in response.content_type
+        ):
+            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+            response.headers["Pragma"] = "no-cache"
+            response.headers["Expires"] = "0"
+        return response
+
     return app
 
 
