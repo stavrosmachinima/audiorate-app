@@ -3,24 +3,24 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "never" 
 
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "never" 
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "never" 
 
   - package-ecosystem: "pip"
     directory: "/requirements"
     schedule:
-      interval: "daily"
+      interval: "never"
 
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "never"
