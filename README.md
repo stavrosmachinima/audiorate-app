@@ -9,6 +9,7 @@ Each sample set is randomized — Model A does not always correspond to the same
 <details>
 <summary>Click to view evaluation scale</summary>
 
+
 **🔍 Evaluation Scale:**
 
 - 1 - Bad: Sounds nothing like the original speaker  
