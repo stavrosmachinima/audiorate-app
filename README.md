@@ -1,6 +1,23 @@
-# AudioRate
+# 🎧 Audio Rating Survey for Voice Cloning Evaluation
 
-This is a uni project to collect data for Mean Opinion Score
+![AudioRate](https://github.com/user-attachments/assets/8f87907c-29a4-4971-8095-97b3b89cc6cd)
+
+This project presents a web-based **Mean Opinion Score (MOS) survey** designed to collect subjective evaluations of voice cloning systems. Developed as part of my thesis research on speech synthesis, the survey invites participants to listen to a ground truth voice line followed by several AI-generated samples, and rate how closely each sample resembles the original speaker.
+
+Each sample set is randomized — Model A does not always correspond to the same model across sets — so please evaluate each clip independently based on your first impression.
+
+<details>
+<summary>Click to view evaluation scale</summary>
+
+**🔍 Evaluation Scale:**
+
+- 1 - Bad: Sounds nothing like the original speaker  
+- 2 - Poor: Barely resembles the original speaker  
+- 3 - Fair: Somewhat similar but with noticeable differences  
+- 4 - Good: Very similar with minor differences  
+- 5 - Excellent: Virtually indistinguishable from the original
+  No technical expertise is needed. Your instinctive, honest reactions are most valuable.
+</details>
 
 ## Docker Quickstart
 
